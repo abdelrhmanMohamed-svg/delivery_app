@@ -1,0 +1,13 @@
+import 'package:flutter/material.dart';
+
+class AppColors {
+  static const Color primary = Color(0xff5117AC);
+  static const Color backgorund = Colors.white;
+  static const Color white = Colors.white;
+  static const Color activeNavIconColor = Color(0xff20D0C4);
+  static const Color inActiveNavIconColor = Color(0xffBBBBBB);
+  static const Color borderColor = Color(0xffE2EDF2);
+  static const Color notificationIconColor = Color(0xff20D0C4);
+  static const Color settingsIconColor = Color(0xffF02756);
+  static const Color headlineTitle = Color(0xff153E73);
+}
