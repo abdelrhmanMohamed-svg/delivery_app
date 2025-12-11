@@ -118,10 +118,12 @@ class Root extends StatelessWidget {
           ],
         ),
       ),
-      body: PersistentTabView(
-        tabs: _tabs(),
-        navBarBuilder: (navBarConfig) =>
-            Style15BottomNavBar(navBarConfig: navBarConfig),
+      body: SafeArea(
+        child: PersistentTabView(
+          tabs: _tabs(),
+          navBarBuilder: (navBarConfig) =>
+              Style15BottomNavBar(navBarConfig: navBarConfig),
+        ),
       ),
     );
   }

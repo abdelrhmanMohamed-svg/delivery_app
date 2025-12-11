@@ -10,4 +10,6 @@ class AppColors {
   static const Color notificationIconColor = Color(0xff20D0C4);
   static const Color settingsIconColor = Color(0xffF02756);
   static const Color headlineTitle = Color(0xff153E73);
+  static const Color gray = Color(0xffCFCFCF);
+  static const Color shadowColor = Color(0xff209BD0);
 }
