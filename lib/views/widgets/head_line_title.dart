@@ -18,20 +18,20 @@ class HeadLineTitle extends StatelessWidget {
         Text(
           title,
           style: Theme.of(context).textTheme.titleLarge!.copyWith(
-            color: AppColors.headlineTitle,
+            color: AppColors.darkBlue,
             fontWeight: FontWeight.w600,
           ),
         ),
         if (showActionText)
-        TextButton(
-          onPressed: () {},
-          child: Text(
-            "Ver todos",
-            style: Theme.of(
-              context,
-            ).textTheme.titleSmall!.copyWith(color: AppColors.gray),
+          TextButton(
+            onPressed: () {},
+            child: Text(
+              "Ver todos",
+              style: Theme.of(
+                context,
+              ).textTheme.titleSmall!.copyWith(color: AppColors.gray),
+            ),
           ),
-        ),
       ],
     );
   }
