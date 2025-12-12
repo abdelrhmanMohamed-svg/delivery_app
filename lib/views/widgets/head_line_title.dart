@@ -6,9 +6,11 @@ class HeadLineTitle extends StatelessWidget {
     super.key,
     required this.title,
     this.showActionText = false,
+    this.actionText = "Ver todos",
   });
   final String title;
   final bool showActionText;
+  final String actionText;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class HeadLineTitle extends StatelessWidget {
           TextButton(
             onPressed: () {},
             child: Text(
-              "Ver todos",
+              actionText,
               style: Theme.of(
                 context,
               ).textTheme.titleSmall!.copyWith(color: AppColors.gray),

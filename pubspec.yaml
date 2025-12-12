@@ -24,6 +24,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/images/ingredientes/
     - assets/images/product/
     - assets/images/category/
 
