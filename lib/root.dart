@@ -3,7 +3,7 @@ import 'package:delivery_app/utils/app_size.dart';
 import 'package:delivery_app/utils/theme/app_colors.dart';
 import 'package:delivery_app/view_models/cart/cart_cubit.dart';
 import 'package:delivery_app/view_models/root/root_cubit.dart';
-import 'package:delivery_app/views/pages/basket_page.dart';
+import 'package:delivery_app/views/pages/cart_page.dart';
 import 'package:delivery_app/views/pages/favorite_page.dart';
 import 'package:delivery_app/views/pages/home_page.dart';
 import 'package:delivery_app/views/pages/profile_page.dart';
@@ -39,7 +39,7 @@ class Root extends StatelessWidget {
           cartCubit.fetchCartItems();
           return cartCubit;
         },
-        child: const BasketPage(),
+        child: const CartPage(),
       ),
       item: ItemConfig(
         activeForegroundColor: AppColors.primary,

@@ -8,16 +8,17 @@ class ProductsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final list = dummyProducts.where((element) => !element.isRecommended).toList();
     return SizedBox(
             height: AppSize.h(300),
             child: ListView.builder(
               padding: EdgeInsets.zero,
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemCount: dummyProducts.length,
+              itemCount: list.length,
 
               itemBuilder: (context, index) {
-                final product = dummyProducts[index];
+                final product = list[index];
                 return ProductListItem(product: product);
               },
             ),

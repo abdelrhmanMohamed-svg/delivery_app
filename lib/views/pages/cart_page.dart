@@ -1,4 +1,5 @@
 import 'package:delivery_app/utils/app_size.dart';
+import 'package:delivery_app/utils/theme/app_colors.dart';
 import 'package:delivery_app/view_models/cart/cart_cubit.dart';
 import 'package:delivery_app/views/widgets/address_row.dart';
 import 'package:delivery_app/views/widgets/cart_item_list.dart';
@@ -6,8 +7,8 @@ import 'package:delivery_app/views/widgets/summary_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BasketPage extends StatelessWidget {
-  const BasketPage({super.key});
+class CartPage extends StatelessWidget {
+  const CartPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +25,17 @@ class BasketPage extends StatelessWidget {
           return Center(child: CircularProgressIndicator.adaptive());
         } else if (state is CartLoaded) {
           final products = state.products;
+          final totalPrice = state.totalPrice;
+          if (products.isEmpty) {
+            return Center(
+              child: Text(
+                'No products in the cart',
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium!.copyWith(color: AppColors.darkBlue),
+              ),
+            );
+          }
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: AppSize.w(16)),
             child: Column(
@@ -38,8 +50,8 @@ class BasketPage extends StatelessWidget {
                 // Cart items list
                 CartItemList(products: products),
 
-                // Totals and action
-                SummaryCard(),
+                // summary card
+                SummaryCard(totalPrice: totalPrice),
                 SizedBox(height: AppSize.h(20)),
               ],
             ),

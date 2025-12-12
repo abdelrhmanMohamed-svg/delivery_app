@@ -3,6 +3,7 @@ import 'package:delivery_app/utils/app_size.dart';
 import 'package:delivery_app/utils/theme/app_colors.dart';
 import 'package:delivery_app/view_models/productDetails/product_details_cubit.dart';
 import 'package:delivery_app/views/widgets/custom_main_button.dart';
+import 'package:delivery_app/views/widgets/custom_snack_bar.dart';
 import 'package:delivery_app/views/widgets/product_details_desc_section.dart';
 import 'package:delivery_app/views/widgets/product_details_image_section.dart';
 import 'package:flutter/material.dart';
@@ -39,11 +40,7 @@ class ProductDetailsPage extends StatelessWidget {
                   BlocConsumer<ProductDetailsCubit, ProductDetailsState>(
                     listener: (context, state) {
                       if (state is AddedToCartSuccess) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text("Producto agregado al carrito"),
-                          ),
-                        );
+                        customSnackBar(context, "Producto agregado");
                       }
                     },
                     listenWhen: (previous, current) =>

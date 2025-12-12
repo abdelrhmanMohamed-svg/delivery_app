@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RecommendedListItem extends StatelessWidget {
-  const RecommendedListItem({super.key, required this.product});
-  final ProductModel product;
+  const RecommendedListItem({super.key, required this.drink});
+  final ProductModel drink;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,7 @@ class RecommendedListItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            product.type,
+                            drink.type,
                             style: Theme.of(context).textTheme.bodySmall!
                                 .copyWith(color: AppColors.lightGray),
                           ),
@@ -60,14 +60,13 @@ class RecommendedListItem extends StatelessWidget {
                             bloc: favoriteCubit,
                             buildWhen: (previous, current) =>
                                 (current is ToggleFavoriteAction &&
-                                current.productId == product.productId),
+                                current.productId == drink.productId),
                             builder: (context, state) {
                               if (state is ToggleFavoriteAction) {
                                 final isFav = state.isFav;
                                 return InkWell(
-                                  onTap: () => favoriteCubit.toggleIsFavorite(
-                                    product.productId,
-                                  ),
+                                  onTap: () => favoriteCubit
+                                      .toggleIsFavoriteProduct(drink.productId,),
                                   child: Icon(
                                     isFav
                                         ? Icons.favorite
@@ -79,16 +78,15 @@ class RecommendedListItem extends StatelessWidget {
                                 );
                               }
                               return InkWell(
-                                onTap: () => favoriteCubit.toggleIsFavorite(
-                                  product.productId,
-                                  true
-                                  
-                                ),
+                                onTap: () =>
+                                    favoriteCubit.toggleIsFavoriteProduct(
+                                      drink.productId,
+                                    ),
                                 child: Icon(
-                                  product.isFavorite
+                                  drink.isFavorite
                                       ? Icons.favorite
                                       : Icons.favorite_border,
-                                  color: product.isFavorite
+                                  color: drink.isFavorite
                                       ? AppColors.red
                                       : AppColors.inActiveNavIconColor,
                                 ),
@@ -99,7 +97,7 @@ class RecommendedListItem extends StatelessWidget {
                       ),
                       SizedBox(height: AppSize.h(4)),
                       Text(
-                        product.name,
+                        drink.name,
                         style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           color: AppColors.darkBlue,
                           fontWeight: FontWeight.w500,
@@ -109,7 +107,7 @@ class RecommendedListItem extends StatelessWidget {
                       ),
                       SizedBox(height: AppSize.h(2)),
                       Text(
-                        product.subtitle,
+                        drink.subtitle,
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           color: AppColors.lightGray,
                         ),
@@ -126,7 +124,7 @@ class RecommendedListItem extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
 
-                        "\$${product.price.toStringAsFixed(2)}",
+                        "\$${drink.price.toStringAsFixed(2)}",
                         style: Theme.of(context).textTheme.titleMedium!
                             .copyWith(
                               color: AppColors.darkBlue,
@@ -137,7 +135,7 @@ class RecommendedListItem extends StatelessWidget {
                         onTap: () => Navigator.of(context, rootNavigator: true)
                             .pushNamed(
                               AppRoutes.itemDetailsPage,
-                              arguments: product,
+                              arguments: drink,
                             ),
                       ),
                     ],
@@ -150,7 +148,7 @@ class RecommendedListItem extends StatelessWidget {
             left: 0,
             bottom: -10,
             child: Image.asset(
-              product.imageUrl,
+              drink.imageUrl,
               height: AppSize.h(140),
               width: AppSize.w(110),
               fit: BoxFit.contain,

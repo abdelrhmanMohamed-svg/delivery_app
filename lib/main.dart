@@ -1,4 +1,3 @@
-import 'package:delivery_app/root.dart';
 import 'package:delivery_app/utils/app_constants.dart';
 import 'package:delivery_app/utils/cubits/cubit/favorite_action_cubit.dart';
 import 'package:delivery_app/utils/router/app_router.dart';

@@ -1,7 +1,9 @@
 import 'package:delivery_app/models/product_model.dart';
 import 'package:delivery_app/utils/app_size.dart';
+import 'package:delivery_app/utils/cubits/cubit/favorite_action_cubit.dart';
 import 'package:delivery_app/utils/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductDetailsImageSection extends StatelessWidget {
   const ProductDetailsImageSection({super.key, required this.product});
@@ -9,10 +11,11 @@ class ProductDetailsImageSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final favoriteActionCubit = BlocProvider.of<FavoriteActionCubit>(context);
     return Stack(
       children: [
         ClipPath(
-          clipper: CurvedClipper(),
+          clipper: BottomSCurveClipper(),
           child: Container(
             width: double.infinity,
             height: AppSize.h(380),
@@ -53,22 +56,56 @@ class ProductDetailsImageSection extends StatelessWidget {
         ),
         // Favorite button
         Positioned(
-          top: AppSize.h(275),
-          right: AppSize.w(80),
-          child: InkWell(
-            onTap: () {},
-            child: Container(
-              padding: EdgeInsets.all(AppSize.w(12)),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.red,
-              ),
-              child: Icon(
-                Icons.favorite_border_outlined,
-                color: AppColors.white,
-                size: AppSize.h(20),
-              ),
-            ),
+          top: AppSize.h(315),
+          right: AppSize.w(50),
+          child: BlocBuilder<FavoriteActionCubit, FavoriteActionState>(
+            bloc: favoriteActionCubit,
+            buildWhen: (previous, current) =>
+                current is ToggleFavoriteAction ||
+                current is FavoriteActionInitial,
+            builder: (context, state) {
+              if (state is ToggleFavoriteAction) {
+                final isFav = state.isFav;
+                return InkWell(
+                  onTap: () => favoriteActionCubit.toggleIsFavoriteProduct(
+                    product.productId,
+                  ),
+                  child: Container(
+                    padding: EdgeInsets.all(AppSize.w(12)),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: isFav ? AppColors.red : AppColors.lightGray,
+                    ),
+                    child: Icon(
+                      isFav ? Icons.favorite : Icons.favorite_border_outlined,
+                      color: AppColors.white,
+                      size: AppSize.h(20),
+                    ),
+                  ),
+                );
+              }
+              return InkWell(
+                onTap: () => favoriteActionCubit.toggleIsFavoriteProduct(
+                  product.productId,
+                ),
+                child: Container(
+                  padding: EdgeInsets.all(AppSize.w(12)),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: product.isFavorite
+                        ? AppColors.red
+                        : AppColors.lightGray,
+                  ),
+                  child: Icon(
+                    product.isFavorite
+                        ? Icons.favorite
+                        : Icons.favorite_border_outlined,
+                    color: AppColors.white,
+                    size: AppSize.h(20),
+                  ),
+                ),
+              );
+            },
           ),
         ),
       ],
@@ -76,40 +113,41 @@ class ProductDetailsImageSection extends StatelessWidget {
   }
 }
 
-class CurvedClipper extends CustomClipper<Path> {
+class BottomSCurveClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final path = Path();
-    path.lineTo(0, size.height * 0.7); // Start on the left side
 
-    // 1. Downward curve on the left
-    final firstControlPoint = Offset(size.width * 0.2, size.height * 0.8);
-    final firstEndPoint = Offset(size.width * 0.35, size.height * 0.8);
+    // 1️⃣ Top straight line
+    path.moveTo(0, 0);
+    path.lineTo(size.width, 0);
+
+    // 2️⃣ Down near bottom (before starting curve)
+    path.lineTo(size.width, size.height * 0.70);
+
+    // 3️⃣ Right curve (much closer to the right corner)
     path.quadraticBezierTo(
-      firstControlPoint.dx,
-      firstControlPoint.dy,
-      firstEndPoint.dx,
-      firstEndPoint.dy,
+      size.width * 0.98, // X control (قريب جدًا من اليمين)
+      size.height * 0.92, // Y control
+      size.width * 0.75, // نهاية الكيرف أقرب للزاوية
+      size.height * 0.90,
     );
 
-    // 2. Straight line in the middle
-    path.lineTo(size.width * 0.65, size.height * 0.8);
-
-    // 3. Upward curve on the right
-    final secondControlPoint = Offset(size.width * 0.8, size.height * 0.8);
-    final secondEndPoint = Offset(size.width, size.height * 0.7);
+    // 4️⃣ Left curve (قريب من الكورنر الشمال)
     path.quadraticBezierTo(
-      secondControlPoint.dx,
-      secondControlPoint.dy,
-      secondEndPoint.dx,
-      secondEndPoint.dy,
+      size.width * 0.1, // control point قربناه للشمال
+      size.height * 0.86,
+      0, // نهاية في كورنر الشمال
+      size.height * 1.0,
     );
 
-    path.lineTo(size.width, 0); // Go to top-right
+    // 5️⃣ Close bottom
+    path.lineTo(0, size.height);
     path.close();
+
     return path;
   }
 
   @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => true;
 }

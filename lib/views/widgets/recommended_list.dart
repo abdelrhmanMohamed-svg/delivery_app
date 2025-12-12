@@ -8,16 +8,19 @@ class RecommendedList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final list = dummyProducts
+        .where((element) => element.isRecommended)
+        .toList();
     return SizedBox(
       height: AppSize.h(140),
       width: double.infinity,
       child: ListView.builder(
-        itemCount: dummyDrinks.length,
+        itemCount: list.length,
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          final drink = dummyDrinks[index];
-          return RecommendedListItem(product: drink);
+          final drink = list[index];
+          return RecommendedListItem(drink: drink);
         },
       ),
     );

@@ -15,16 +15,20 @@ class HomePage extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
+            // categories section
             HeadLineTitle(title: "Explorar categorias", showActionText: true),
 
             SizedBox(height: AppSize.h(16)),
             CategoriesList(),
             SizedBox(height: AppSize.h(25)),
 
+            // products section
             HeadLineTitle(title: "Productos populares"),
             SizedBox(height: AppSize.h(16)),
             ProductsList(),
             SizedBox(height: AppSize.h(25)),
+
+            // recommended section
             HeadLineTitle(title: "Recomendados"),
             SizedBox(height: AppSize.h(16)),
             RecommendedList(),

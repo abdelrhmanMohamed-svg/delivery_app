@@ -39,23 +39,23 @@ class ProductListItem extends StatelessWidget {
                   builder: (context, state) {
                     if (state is ToggleFavoriteAction) {
                       final isFav = state.isFav;
-                      return 
-                      InkWell(
-                      onTap: () =>
-                          favoriteCubit.toggleIsFavorite(product.productId),
-                      child: Icon(
-                        isFav
-                            ? Icons.favorite
-                            : Icons.favorite_border,
-                        color: isFav
-                            ? AppColors.red
-                            : AppColors.inActiveNavIconColor,
-                      ),
-                    );
+                      return InkWell(
+                        onTap: () => favoriteCubit.toggleIsFavoriteProduct(
+                          product.productId,
+                          
+                        ),
+                        child: Icon(
+                          isFav ? Icons.favorite : Icons.favorite_border,
+                          color: isFav
+                              ? AppColors.red
+                              : AppColors.inActiveNavIconColor,
+                        ),
+                      );
                     }
                     return InkWell(
-                      onTap: () =>
-                          favoriteCubit.toggleIsFavorite(product.productId),
+                      onTap: () => favoriteCubit.toggleIsFavoriteProduct(
+                        product.productId,
+                      ),
                       child: Icon(
                         product.isFavorite
                             ? Icons.favorite
