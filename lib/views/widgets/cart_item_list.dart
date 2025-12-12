@@ -4,7 +4,8 @@ import 'package:delivery_app/views/widgets/cart_item.dart';
 import 'package:flutter/material.dart';
 
 class CartItemList extends StatelessWidget {
-  const CartItemList({super.key});
+  const CartItemList({super.key, required this.products});
+  final List<ProductModel> products;
 
   @override
   Widget build(BuildContext context) {
@@ -14,10 +15,10 @@ class CartItemList extends StatelessWidget {
         clipBehavior: Clip.none,
         padding: EdgeInsets.only(top: AppSize.h(8)),
         scrollDirection: Axis.horizontal,
-        itemCount: dummyProducts.length,
+        itemCount: products.length,
         separatorBuilder: (_, __) => SizedBox(width: AppSize.w(18)),
         itemBuilder: (context, index) {
-          final product = dummyProducts[index];
+          final product = products[index];
           return SizedBox(
             width: AppSize.w(265),
             child: CartItem(product: product),

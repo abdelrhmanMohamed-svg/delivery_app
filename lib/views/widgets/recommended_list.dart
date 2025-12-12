@@ -17,7 +17,7 @@ class RecommendedList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           final drink = dummyDrinks[index];
-          return RecommendedListItem(porduct: drink);
+          return RecommendedListItem(product: drink);
         },
       ),
     );

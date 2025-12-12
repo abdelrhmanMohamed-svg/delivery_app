@@ -1,5 +1,6 @@
 import 'package:delivery_app/utils/app_constants.dart';
 import 'package:delivery_app/utils/app_size.dart';
+import 'package:delivery_app/utils/router/app_routes.dart';
 import 'package:delivery_app/utils/theme/app_colors.dart';
 import 'package:delivery_app/view_models/root/root_cubit.dart';
 import 'package:flutter/material.dart';
@@ -42,24 +43,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 children: [
                   Row(
                     children: [
-                      SizedBox(
-                        width: AppSize.w(132),
-                        height: AppSize.h(35),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            prefixIcon: const Icon(
-                              Icons.search,
-                              color: AppColors.primary,
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                              borderSide: BorderSide(
-                                color: AppColors.borderColor,
-                              ),
-                            ),
-                            filled: true,
-                            fillColor: AppColors.backgorund,
+                      InkWell(
+                        onTap: () => Navigator.of(context).pushNamed(AppRoutes.searchPageRoute),
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          width: AppSize.w(140),
+                          height: AppSize.h(35),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            border: Border.all(),
                           ),
+                          child: Icon(Icons.search, color: AppColors.primary),
                         ),
                       ),
                       SizedBox(width: AppSize.w(6)),
@@ -78,6 +73,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       Icon(
                         Icons.notifications_none_outlined,
                         color: AppColors.notificationIconColor,
+                        size: 26,
                       ),
                       SizedBox(width: AppSize.w(10)),
 

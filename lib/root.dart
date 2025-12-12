@@ -1,6 +1,7 @@
 import 'package:delivery_app/utils/app_constants.dart';
 import 'package:delivery_app/utils/app_size.dart';
 import 'package:delivery_app/utils/theme/app_colors.dart';
+import 'package:delivery_app/view_models/cart/cart_cubit.dart';
 import 'package:delivery_app/view_models/root/root_cubit.dart';
 import 'package:delivery_app/views/pages/basket_page.dart';
 import 'package:delivery_app/views/pages/favorite_page.dart';
@@ -32,7 +33,14 @@ class Root extends StatelessWidget {
       ),
     ),
     PersistentTabConfig(
-      screen: const BasketPage(),
+      screen: BlocProvider(
+        create: (context) {
+          final cartCubit = CartCubit();
+          cartCubit.fetchCartItems();
+          return cartCubit;
+        },
+        child: const BasketPage(),
+      ),
       item: ItemConfig(
         activeForegroundColor: AppColors.primary,
 
@@ -71,6 +79,7 @@ class Root extends StatelessWidget {
       appBar: CustomAppBar(),
       body: SafeArea(
         child: PersistentTabView(
+          stateManagement: false,
           onTabChanged: (index) {
             rootCubit.changeTab(index);
           },

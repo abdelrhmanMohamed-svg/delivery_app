@@ -3,7 +3,6 @@ import 'package:delivery_app/utils/app_size.dart';
 import 'package:delivery_app/utils/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
-
 class ProductDetailsImageSection extends StatelessWidget {
   const ProductDetailsImageSection({super.key, required this.product});
   final ProductModel product;
@@ -76,17 +75,16 @@ class ProductDetailsImageSection extends StatelessWidget {
     );
   }
 }
+
 class CurvedClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final path = Path();
+    path.lineTo(0, size.height * 0.7); // Start on the left side
 
-    // Start from the top-left corner
-    path.lineTo(0, size.height * 0.8);
-
-    // The first, main curve (convex)
-    var firstControlPoint = Offset(size.width / 4, size.height);
-    var firstEndPoint = Offset(size.width / 2, size.height * 0.85);
+    // 1. Downward curve on the left
+    final firstControlPoint = Offset(size.width * 0.2, size.height * 0.8);
+    final firstEndPoint = Offset(size.width * 0.35, size.height * 0.8);
     path.quadraticBezierTo(
       firstControlPoint.dx,
       firstControlPoint.dy,
@@ -94,9 +92,12 @@ class CurvedClipper extends CustomClipper<Path> {
       firstEndPoint.dy,
     );
 
-    // The second, smaller curve (concave)
-    var secondControlPoint = Offset(size.width * 3 / 4, size.height * 0.7);
-    var secondEndPoint = Offset(size.width, size.height * 0.85);
+    // 2. Straight line in the middle
+    path.lineTo(size.width * 0.65, size.height * 0.8);
+
+    // 3. Upward curve on the right
+    final secondControlPoint = Offset(size.width * 0.8, size.height * 0.8);
+    final secondEndPoint = Offset(size.width, size.height * 0.7);
     path.quadraticBezierTo(
       secondControlPoint.dx,
       secondControlPoint.dy,
@@ -104,13 +105,11 @@ class CurvedClipper extends CustomClipper<Path> {
       secondEndPoint.dy,
     );
 
-    // Finish at the top-right corner
-    path.lineTo(size.width, 0);
+    path.lineTo(size.width, 0); // Go to top-right
     path.close();
-
     return path;
   }
 
   @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
 }

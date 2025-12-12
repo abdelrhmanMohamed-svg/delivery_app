@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class ProductModel {
   final String productId;
   final String name;
@@ -7,6 +8,7 @@ class ProductModel {
   final bool isFavorite;
   final String type;
   final String description;
+  final int quantity;
 
   ProductModel({
     required this.productId,
@@ -16,9 +18,32 @@ class ProductModel {
     required this.imageUrl,
     this.isFavorite = false,
     this.type = "Naturales",
+    this.quantity = 1,
     this.description =
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero",
   });
+
+  ProductModel copyWith({
+    String? productId,
+    String? name,
+    String? subtitle,
+    double? price,
+    String? imageUrl,
+    bool? isFavorite,
+    String? type,
+    String? description,
+  }) {
+    return ProductModel(
+      productId: productId ?? this.productId,
+      name: name ?? this.name,
+      subtitle: subtitle ?? this.subtitle,
+      price: price ?? this.price,
+      imageUrl: imageUrl ?? this.imageUrl,
+      isFavorite: isFavorite ?? this.isFavorite,
+      type: type ?? this.type,
+      description: description ?? this.description,
+    );
+  }
 }
 
 final List<ProductModel> dummyProducts = [
@@ -53,24 +78,33 @@ final List<ProductModel> dummyProducts = [
 ];
 List<ProductModel> dummyDrinks = [
   ProductModel(
-    productId: "p1",
+    productId: "p5",
     name: "Malteadas tropicales",
     subtitle: "Elaborado con jugos naturales",
     imageUrl: "assets/images/product/drink.png",
     price: 12.58,
   ),
   ProductModel(
-    productId: "p2",
+    productId: "p6",
     name: "Malteadas tropicales",
     subtitle: "Elaborado con jugos naturales",
     imageUrl: "assets/images/product/drink.png",
     price: 12.58,
   ),
   ProductModel(
-    productId: "p3",
+    productId: "p7",
     name: "Malteadas tropicales",
     subtitle: "Elaborado con jugos naturales",
     imageUrl: "assets/images/product/drink.png",
     price: 12.58,
+  ),
+];
+List<ProductModel> cartList = [
+  ProductModel(
+    productId: "p4",
+    name: "Hamburguesa mix",
+    subtitle: "Doble carne con queso",
+    price: 12.58,
+    imageUrl: "assets/images/product/burger_p.png",
   ),
 ];

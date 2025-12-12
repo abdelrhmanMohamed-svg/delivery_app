@@ -1,5 +1,6 @@
 import 'package:delivery_app/root.dart';
 import 'package:delivery_app/utils/app_constants.dart';
+import 'package:delivery_app/utils/cubits/cubit/favorite_action_cubit.dart';
 import 'package:delivery_app/utils/router/app_router.dart';
 import 'package:delivery_app/utils/router/app_routes.dart';
 import 'package:delivery_app/utils/theme/app_theme.dart';
@@ -16,8 +17,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => RootCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => RootCubit()),
+        BlocProvider(create: (context) => FavoriteActionCubit()),
+      ],
       child: MaterialApp(
         title: AppConstants.appName,
         theme: AppTheme.getTheme,

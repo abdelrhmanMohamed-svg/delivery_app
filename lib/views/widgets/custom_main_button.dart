@@ -1,14 +1,21 @@
 import 'package:delivery_app/utils/app_size.dart';
+import 'package:delivery_app/utils/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomMainButton extends StatelessWidget {
-  const CustomMainButton({
+  CustomMainButton({
     super.key,
-    required this.onTap,
-    required this.buttonText,
-  });
-  final VoidCallback onTap;
-  final String buttonText;
+    this.onTap,
+    this.buttonText,
+    this.child,
+    this.succeed = false,
+  }) {
+    assert(buttonText != null || child != null);
+  }
+  final VoidCallback? onTap;
+  final String? buttonText;
+  final Widget? child;
+  final bool succeed;
 
   @override
   Widget build(BuildContext context) {
@@ -19,23 +26,24 @@ class CustomMainButton extends StatelessWidget {
         height: AppSize.h(60),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xff5117AC), Color(0xff20D0C4)],
+            colors: succeed
+                ? [AppColors.lightGray, AppColors.gray]
+                : [AppColors.primary, AppColors.notificationIconColor],
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
           borderRadius: BorderRadius.circular(AppSize.w(12)),
         ),
-        child: InkWell(
-          onTap: () {},
-          child: Center(
-            child: Text(
-              buttonText,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
+        child: Center(
+          child: buttonText != null
+              ? Text(
+                  buttonText!,
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                )
+              : child,
         ),
       ),
     );
