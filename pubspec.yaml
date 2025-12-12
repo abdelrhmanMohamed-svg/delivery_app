@@ -10,6 +10,7 @@ environment:
 
 dependencies:
   cupertino_icons: ^1.0.8
+  flutter_bloc: ^9.1.1
   flutter:
     sdk: flutter
   persistent_bottom_nav_bar_v2: ^6.2.0

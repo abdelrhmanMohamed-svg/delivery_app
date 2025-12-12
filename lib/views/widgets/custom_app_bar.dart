@@ -1,0 +1,103 @@
+import 'package:delivery_app/utils/app_constants.dart';
+import 'package:delivery_app/utils/app_size.dart';
+import 'package:delivery_app/utils/theme/app_colors.dart';
+import 'package:delivery_app/view_models/root/root_cubit.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const CustomAppBar({super.key});
+  @override
+  Widget build(BuildContext context) {
+    int selectedIndex = 0;
+
+    final rootCubit = BlocProvider.of<RootCubit>(context);
+
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 5.0),
+        child: BlocBuilder<RootCubit, RootState>(
+          bloc: rootCubit,
+          buildWhen: (previous, current) =>
+              current is RootTabChanged || current is RootInitial,
+
+          builder: (context, state) {
+            if (state is RootTabChanged) {
+              selectedIndex = state.selectedIndex;
+            }
+
+            if (selectedIndex == 2) {
+              return Center(
+                child: Text(
+                  "Carrito",
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              );
+            } else {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: AppSize.w(132),
+                        height: AppSize.h(35),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            prefixIcon: const Icon(
+                              Icons.search,
+                              color: AppColors.primary,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide(
+                                color: AppColors.borderColor,
+                              ),
+                            ),
+                            filled: true,
+                            fillColor: AppColors.backgorund,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: AppSize.w(6)),
+                      Text(
+                        "Inicio",
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.notifications_none_outlined,
+                        color: AppColors.notificationIconColor,
+                      ),
+                      SizedBox(width: AppSize.w(10)),
+
+                      Image.asset(
+                        AppConstants.settingsIcon,
+                        width: AppSize.w(24),
+                        height: AppSize.h(24),
+                        color: AppColors.settingsIconColor,
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
