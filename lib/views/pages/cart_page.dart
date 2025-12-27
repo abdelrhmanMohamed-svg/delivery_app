@@ -1,11 +1,12 @@
-import 'package:delivery_app/utils/app_size.dart';
 import 'package:delivery_app/utils/theme/app_colors.dart';
+import 'package:delivery_app/utils/theme/app_text_styles.dart';
 import 'package:delivery_app/view_models/cart/cart_cubit.dart';
 import 'package:delivery_app/views/widgets/address_row.dart';
 import 'package:delivery_app/views/widgets/cart_item_list.dart';
 import 'package:delivery_app/views/widgets/summary_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -13,8 +14,6 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartCubit = BlocProvider.of<CartCubit>(context);
-
-    AppSize.init(context);
 
     return BlocBuilder<CartCubit, CartState>(
       bloc: cartCubit,
@@ -30,30 +29,31 @@ class CartPage extends StatelessWidget {
             return Center(
               child: Text(
                 'No products in the cart',
-                style: Theme.of(
-                  context,
-                ).textTheme.titleMedium!.copyWith(color: AppColors.darkBlue),
+                style: AppTextStyles.headingH6.copyWith(
+                  color: AppColors.darkBlue,
+                ),
               ),
             );
           }
-          return Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppSize.w(16)),
-            child: Column(
-              children: [
-                SizedBox(height: AppSize.h(18)),
+          return SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: Column(
+                children: [
+                  10.verticalSpace,
 
-                //address row with add button
-                AddressRow(),
+                  //address row with add button
+                  AddressRow(),
 
-                SizedBox(height: AppSize.h(50)),
+                  40.verticalSpace,
 
-                // Cart items list
-                CartItemList(products: products),
+                  // Cart items list
+                  CartItemList(products: products),
 
-                // summary card
-                SummaryCard(totalPrice: totalPrice),
-                SizedBox(height: AppSize.h(20)),
-              ],
+                  // summary card
+                  SummaryCard(totalPrice: totalPrice),
+                ],
+              ),
             ),
           );
         }

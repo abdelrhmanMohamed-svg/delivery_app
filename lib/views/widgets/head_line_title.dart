@@ -1,7 +1,9 @@
 import 'package:delivery_app/utils/theme/app_colors.dart';
+import 'package:delivery_app/utils/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class HeadLineTitle extends StatelessWidget {
+class HeadLineTitle extends StatelessWidget with SU {
   const HeadLineTitle({
     super.key,
     required this.title,
@@ -18,20 +20,17 @@ class HeadLineTitle extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
+          maxLines: 1,
           title,
-          style: Theme.of(context).textTheme.titleLarge!.copyWith(
-            color: AppColors.darkBlue,
-            fontWeight: FontWeight.w600,
-          ),
+          style: AppTextStyles.headingH5.copyWith(color: AppColors.darkBlue),
         ),
         if (showActionText)
           TextButton(
             onPressed: () {},
             child: Text(
+              maxLines: 1,
               actionText,
-              style: Theme.of(
-                context,
-              ).textTheme.titleSmall!.copyWith(color: AppColors.gray),
+              style: AppTextStyles.mMedium.copyWith(color: AppColors.gray),
             ),
           ),
       ],

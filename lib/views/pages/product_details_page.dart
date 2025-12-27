@@ -1,6 +1,6 @@
 import 'package:delivery_app/models/product_model.dart';
-import 'package:delivery_app/utils/app_size.dart';
 import 'package:delivery_app/utils/theme/app_colors.dart';
+import 'package:delivery_app/utils/theme/app_text_styles.dart';
 import 'package:delivery_app/view_models/productDetails/product_details_cubit.dart';
 import 'package:delivery_app/views/widgets/custom_main_button.dart';
 import 'package:delivery_app/views/widgets/custom_snack_bar.dart';
@@ -8,6 +8,7 @@ import 'package:delivery_app/views/widgets/product_details_desc_section.dart';
 import 'package:delivery_app/views/widgets/product_details_image_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductDetailsPage extends StatelessWidget {
   const ProductDetailsPage({super.key, required this.product});
@@ -31,10 +32,7 @@ class ProductDetailsPage extends StatelessWidget {
             const Spacer(),
             // Bottom section with button and price
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16.0,
-                vertical: 20.0,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 16.0.w),
               child: Row(
                 children: [
                   BlocConsumer<ProductDetailsCubit, ProductDetailsState>(
@@ -53,7 +51,10 @@ class ProductDetailsPage extends StatelessWidget {
                       if (state is AddedToCartLoading) {
                         return CustomMainButton(
                           onTap: null,
-                          child: const CircularProgressIndicator.adaptive(),
+                          child: Transform.scale(
+                            scale: 0.8.h,
+                            child: const CircularProgressIndicator.adaptive(),
+                          ),
                         );
                       }
                       if (state is AddedToCartSuccess) {
@@ -71,11 +72,10 @@ class ProductDetailsPage extends StatelessWidget {
                       );
                     },
                   ),
-                  SizedBox(width: AppSize.w(20)),
+                  20.horizontalSpace,
                   Text(
                     "\$${product.price.toStringAsFixed(2)}",
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
+                    style: AppTextStyles.lSemiBold.copyWith(
                       color: AppColors.darkBlue,
                     ),
                   ),

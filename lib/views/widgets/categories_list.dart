@@ -1,15 +1,15 @@
 import 'package:delivery_app/models/category_model.dart';
-import 'package:delivery_app/utils/app_size.dart';
 import 'package:delivery_app/views/widgets/category_list_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CategoriesList extends StatelessWidget {
+class CategoriesList extends StatelessWidget with SU {
   const CategoriesList({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: AppSize.h(100),
+      height: 120.h,
       child: ListView.builder(
         padding: EdgeInsets.zero,
         shrinkWrap: true,

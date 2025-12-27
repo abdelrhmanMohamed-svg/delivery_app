@@ -1,8 +1,9 @@
-import 'package:delivery_app/utils/app_size.dart';
 import 'package:delivery_app/utils/theme/app_colors.dart';
+import 'package:delivery_app/utils/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomMainButton extends StatelessWidget {
+class CustomMainButton extends StatelessWidget with SU {
   CustomMainButton({
     super.key,
     this.onTap,
@@ -22,8 +23,8 @@ class CustomMainButton extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        width: AppSize.w(200),
-        height: AppSize.h(60),
+        width: 200.w,
+        height: 60.h,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: succeed
@@ -32,16 +33,13 @@ class CustomMainButton extends StatelessWidget {
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
-          borderRadius: BorderRadius.circular(AppSize.w(12)),
+          borderRadius: BorderRadius.circular(12.r),
         ),
         child: Center(
           child: buttonText != null
               ? Text(
                   buttonText!,
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: AppTextStyles.lMedium.copyWith(color: AppColors.white),
                 )
               : child,
         ),

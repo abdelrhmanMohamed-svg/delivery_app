@@ -1,14 +1,15 @@
 import 'package:delivery_app/models/product_model.dart';
-import 'package:delivery_app/utils/app_size.dart';
 import 'package:delivery_app/utils/theme/app_colors.dart';
+import 'package:delivery_app/utils/theme/app_text_styles.dart';
 import 'package:delivery_app/view_models/cart/cart_cubit.dart';
 import 'package:delivery_app/views/widgets/animated_text.dart';
 import 'package:delivery_app/views/widgets/count_component.dart';
 import 'package:delivery_app/views/widgets/custom_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CartItem extends StatelessWidget {
+class CartItem extends StatelessWidget with SU {
   const CartItem({super.key, required this.product});
   final ProductModel product;
 
@@ -21,47 +22,43 @@ class CartItem extends StatelessWidget {
       children: [
         Container(
           width: double.infinity,
-          padding: EdgeInsets.symmetric(
-            vertical: AppSize.h(20),
-            horizontal: AppSize.w(20),
-          ),
+          padding: EdgeInsets.all(10.h),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(AppSize.w(20)),
+            borderRadius: BorderRadius.circular(20.r),
             boxShadow: [
-              BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.2),
+                blurRadius: 10,
+              ),
             ],
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               // Image centered
-              Image.asset(
-                product.imageUrl,
-                fit: BoxFit.contain,
-                height: AppSize.h(110),
-                width: AppSize.w(110),
-              ),
-              SizedBox(height: AppSize.h(10)),
+              Image.asset(product.imageUrl, fit: BoxFit.contain, height: 100.h),
+              10.verticalSpace,
               Text(
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 product.name,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                style: AppTextStyles.headingH5.copyWith(
                   color: AppColors.darkBlue,
-                  fontWeight: FontWeight.w600,
                 ),
               ),
-              SizedBox(height: AppSize.h(8)),
+              8.verticalSpace,
               Text(
                 product.description,
                 textAlign: TextAlign.center,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodySmall!.copyWith(color: AppColors.lightGray),
+                style: AppTextStyles.sMedium.copyWith(
+                  color: AppColors.lightGray,
+                ),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
-              SizedBox(height: AppSize.h(25)),
+              25.verticalSpace,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -88,13 +85,14 @@ class CartItem extends StatelessWidget {
                   ),
                 ],
               ),
+              5.verticalSpace,
             ],
           ),
         ),
         // delete icon
         Positioned(
-          top: -AppSize.h(15),
-          right: AppSize.w(10),
+          top: -10.h,
+          right: 10.w,
           child: BlocConsumer<CartCubit, CartState>(
             listener: (context, state) {
               if (state is DeleteProduct) {
@@ -108,11 +106,11 @@ class CartItem extends StatelessWidget {
               return InkWell(
                 onTap: () => cartCubit.deleteProduct(product.productId),
                 child: Container(
-                  padding: EdgeInsets.all(8),
-                  width: AppSize.w(40),
-                  height: AppSize.h(50),
+                  padding: EdgeInsets.all(8.h),
+                  width: 35.w,
+                  height: 40.h,
                   decoration: BoxDecoration(
-                    color: Color(0xffF02756),
+                    color: AppColors.red,
                     shape: BoxShape.circle,
                   ),
                   child: Image.asset(

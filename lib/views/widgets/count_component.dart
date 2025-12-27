@@ -1,11 +1,12 @@
 import 'package:delivery_app/models/product_model.dart';
-import 'package:delivery_app/utils/app_size.dart';
 import 'package:delivery_app/utils/theme/app_colors.dart';
+import 'package:delivery_app/utils/theme/app_text_styles.dart';
 import 'package:delivery_app/view_models/cart/cart_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CountComponent extends StatelessWidget {
+class CountComponent extends StatelessWidget with SU {
   const CountComponent({super.key, required this.product});
   final ProductModel product;
 
@@ -29,34 +30,34 @@ class CountComponent extends StatelessWidget {
               InkWell(
                 onTap: () => cartCubit.decrementCounter(product.productId),
                 child: Container(
-                  width: AppSize.w(30),
-                  height: AppSize.h(30),
+                  padding: EdgeInsets.all(2.h),
+
                   decoration: BoxDecoration(
                     color: Color(0xfff5f5f7),
-                    borderRadius: BorderRadius.circular(AppSize.w(10)),
+                    borderRadius: BorderRadius.circular(10.r),
                   ),
-                  child: Icon(Icons.remove, color: AppColors.primary),
+                  child: Icon(
+                    Icons.remove,
+                    color: AppColors.primary,
+                    size: 28.sp,
+                  ),
                 ),
               ),
-              SizedBox(width: AppSize.w(15)),
+              15.horizontalSpace,
 
-              Text(
-                quantity.toString(),
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
+              Text(quantity.toString(), style: AppTextStyles.lRegular),
 
-              SizedBox(width: AppSize.w(15)),
+              15.horizontalSpace,
               // plus
               InkWell(
                 onTap: () => cartCubit.incrementCounter(product.productId),
                 child: Container(
-                  width: AppSize.w(40),
-                  height: AppSize.h(40),
+                  padding: EdgeInsets.all(2.h),
                   decoration: BoxDecoration(
                     color: AppColors.primary,
-                    borderRadius: BorderRadius.circular(AppSize.w(10)),
+                    shape: BoxShape.circle,
                   ),
-                  child: Icon(Icons.add, color: Colors.white),
+                  child: Icon(Icons.add, color: Colors.white, size: 28.sp),
                 ),
               ),
             ],
@@ -67,34 +68,35 @@ class CountComponent extends StatelessWidget {
             InkWell(
               onTap: () => cartCubit.decrementCounter(product.productId),
               child: Container(
-                width: AppSize.w(30),
-                height: AppSize.h(30),
+                padding: EdgeInsets.all(2.h),
+
                 decoration: BoxDecoration(
                   color: Color(0xfff5f5f7),
-                  borderRadius: BorderRadius.circular(AppSize.w(10)),
+                  shape: BoxShape.circle,
                 ),
-                child: Icon(Icons.remove, color: AppColors.primary),
+                child: Icon(
+                  Icons.remove,
+                  color: AppColors.primary,
+                  size: 28.sp,
+                ),
               ),
             ),
-            SizedBox(width: AppSize.w(15)),
+            15.horizontalSpace,
 
-            Text(
-              product.quantity.toString(),
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
+            Text(product.quantity.toString(), style: AppTextStyles.lRegular),
 
-            SizedBox(width: AppSize.w(15)),
+            15.horizontalSpace,
             // plus
             InkWell(
               onTap: () => cartCubit.incrementCounter(product.productId),
               child: Container(
-                width: AppSize.w(40),
-                height: AppSize.h(40),
+                padding: EdgeInsets.all(2.h),
+
                 decoration: BoxDecoration(
                   color: AppColors.primary,
-                  borderRadius: BorderRadius.circular(AppSize.w(10)),
+                  shape: BoxShape.circle,
                 ),
-                child: Icon(Icons.add, color: Colors.white),
+                child: Icon(Icons.add, color: Colors.white, size: 28.sp),
               ),
             ),
           ],

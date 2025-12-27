@@ -1,13 +1,14 @@
 import 'package:delivery_app/models/product_model.dart';
-import 'package:delivery_app/utils/app_size.dart';
 import 'package:delivery_app/utils/cubits/cubit/favorite_action_cubit.dart';
 import 'package:delivery_app/utils/router/app_routes.dart';
 import 'package:delivery_app/utils/theme/app_colors.dart';
+import 'package:delivery_app/utils/theme/app_text_styles.dart';
 import 'package:delivery_app/views/widgets/custom_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ProductListItem extends StatelessWidget {
+class ProductListItem extends StatelessWidget with SU {
   const ProductListItem({super.key, required this.product});
   final ProductModel product;
 
@@ -15,18 +16,18 @@ class ProductListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final favoriteCubit = BlocProvider.of<FavoriteActionCubit>(context);
     return SizedBox(
-      width: AppSize.w(250),
+      width: 260.w,
 
       child: Card(
         color: AppColors.white,
         elevation: 2,
 
-        margin: const EdgeInsets.only(right: 15.0),
+        margin: EdgeInsets.only(right: 15.h),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(16.0.r),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(10),
+          padding: EdgeInsets.all(10.h),
           child: Column(
             children: [
               Align(
@@ -42,7 +43,6 @@ class ProductListItem extends StatelessWidget {
                       return InkWell(
                         onTap: () => favoriteCubit.toggleIsFavoriteProduct(
                           product.productId,
-                          
                         ),
                         child: Icon(
                           isFav ? Icons.favorite : Icons.favorite_border,
@@ -57,6 +57,7 @@ class ProductListItem extends StatelessWidget {
                         product.productId,
                       ),
                       child: Icon(
+                        size: 25.h,
                         product.isFavorite
                             ? Icons.favorite
                             : Icons.favorite_border,
@@ -71,13 +72,13 @@ class ProductListItem extends StatelessWidget {
               Stack(
                 children: [
                   Container(
-                    height: AppSize.h(120),
-                    width: AppSize.w(120),
+                    height: 117.h,
+                    width: 117.w,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: AppColors.shadowColor.withOpacity(0.33),
+                          color: AppColors.shadowColor.withValues(alpha: 0.33),
                           blurRadius: 6,
                           spreadRadius: 5,
                         ),
@@ -88,14 +89,14 @@ class ProductListItem extends StatelessWidget {
                     borderRadius: BorderRadius.circular(16.0),
                     child: Image.asset(
                       product.imageUrl,
-                      height: AppSize.h(120),
-                      width: AppSize.w(120),
-                      fit: BoxFit.cover,
+                      height: 120.h,
+                      width: 120.w,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: AppSize.h(25)),
+              25.verticalSpace,
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -105,29 +106,25 @@ class ProductListItem extends StatelessWidget {
                     children: [
                       Text(
                         product.name,
-                        style: Theme.of(context).textTheme.titleMedium!
-                            .copyWith(
-                              color: AppColors.lightGray,
-                              fontWeight: FontWeight.w500,
-                            ),
+                        style: AppTextStyles.lMedium.copyWith(
+                          color: AppColors.lightGray,
+                        ),
                       ),
                       Text(
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
 
                         product.subtitle,
-                        style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                        style: AppTextStyles.mMedium.copyWith(
                           color: AppColors.lightGray,
                         ),
                       ),
-                      SizedBox(height: AppSize.h(8)),
+                      8.verticalSpace,
                       Text(
                         "\$${product.price.toStringAsFixed(2)}",
-                        style: Theme.of(context).textTheme.titleMedium!
-                            .copyWith(
-                              color: AppColors.darkBlue,
-                              fontWeight: FontWeight.w600,
-                            ),
+                        style: AppTextStyles.headingH6.copyWith(
+                          color: AppColors.darkBlue,
+                        ),
                       ),
                     ],
                   ),

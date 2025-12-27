@@ -1,10 +1,10 @@
 import 'package:delivery_app/utils/app_constants.dart';
-import 'package:delivery_app/utils/app_size.dart';
 import 'package:delivery_app/utils/router/app_routes.dart';
 import 'package:delivery_app/utils/theme/app_colors.dart';
 import 'package:delivery_app/view_models/root/root_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key});
@@ -44,12 +44,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   Row(
                     children: [
                       InkWell(
-                        onTap: () => Navigator.of(context).pushNamed(AppRoutes.searchPageRoute),
+                        onTap: () => Navigator.of(
+                          context,
+                        ).pushNamed(AppRoutes.searchPageRoute),
                         child: Container(
                           alignment: Alignment.centerLeft,
                           padding: EdgeInsets.symmetric(horizontal: 10.0),
-                          width: AppSize.w(140),
-                          height: AppSize.h(35),
+                          width: 140.w,
+                          height: 35.h,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
                             border: Border.all(),
@@ -57,7 +59,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           child: Icon(Icons.search, color: AppColors.primary),
                         ),
                       ),
-                      SizedBox(width: AppSize.w(6)),
+                      6.horizontalSpace,
                       Text(
                         "Inicio",
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(
@@ -75,12 +77,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         color: AppColors.notificationIconColor,
                         size: 26,
                       ),
-                      SizedBox(width: AppSize.w(10)),
+                      10.horizontalSpace,
 
                       Image.asset(
                         AppConstants.settingsIcon,
-                        width: AppSize.w(24),
-                        height: AppSize.h(24),
+                        width: 24.w,
+                        height: 24.h,
                         color: AppColors.settingsIconColor,
                       ),
                     ],

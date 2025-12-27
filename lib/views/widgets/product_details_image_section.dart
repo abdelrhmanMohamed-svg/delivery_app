@@ -1,11 +1,11 @@
 import 'package:delivery_app/models/product_model.dart';
-import 'package:delivery_app/utils/app_size.dart';
 import 'package:delivery_app/utils/cubits/cubit/favorite_action_cubit.dart';
 import 'package:delivery_app/utils/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ProductDetailsImageSection extends StatelessWidget {
+class ProductDetailsImageSection extends StatelessWidget with SU {
   const ProductDetailsImageSection({super.key, required this.product});
   final ProductModel product;
 
@@ -18,7 +18,7 @@ class ProductDetailsImageSection extends StatelessWidget {
           clipper: BottomSCurveClipper(),
           child: Container(
             width: double.infinity,
-            height: AppSize.h(380),
+            height: 320.h,
             color: Color(0xff2a2a2a),
             child: Image.asset(
               "assets/images/burger_background.jpg",
@@ -28,19 +28,15 @@ class ProductDetailsImageSection extends StatelessWidget {
         ),
         // Back button
         Positioned(
-          top: AppSize.h(40),
-          left: AppSize.w(16),
+          top: 40.h,
+          left: 16.w,
           child: InkWell(
             onTap: () => Navigator.pop(context),
-            child: Icon(
-              Icons.chevron_left,
-              color: AppColors.white,
-              size: AppSize.h(35),
-            ),
+            child: Icon(Icons.chevron_left, color: AppColors.white, size: 35.h),
           ),
         ),
         Positioned(
-          top: AppSize.h(40),
+          top: 40.h,
           left: 0,
           right: 0,
           child: Align(
@@ -56,8 +52,8 @@ class ProductDetailsImageSection extends StatelessWidget {
         ),
         // Favorite button
         Positioned(
-          top: AppSize.h(315),
-          right: AppSize.w(50),
+          top: 265.h,
+          right: 60.w,
           child: BlocBuilder<FavoriteActionCubit, FavoriteActionState>(
             bloc: favoriteActionCubit,
             buildWhen: (previous, current) =>
@@ -71,7 +67,7 @@ class ProductDetailsImageSection extends StatelessWidget {
                     product.productId,
                   ),
                   child: Container(
-                    padding: EdgeInsets.all(AppSize.w(12)),
+                    padding: EdgeInsets.all(12.h),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: isFav ? AppColors.red : AppColors.lightGray,
@@ -79,7 +75,7 @@ class ProductDetailsImageSection extends StatelessWidget {
                     child: Icon(
                       isFav ? Icons.favorite : Icons.favorite_border_outlined,
                       color: AppColors.white,
-                      size: AppSize.h(20),
+                      size: 20.h,
                     ),
                   ),
                 );
@@ -89,7 +85,7 @@ class ProductDetailsImageSection extends StatelessWidget {
                   product.productId,
                 ),
                 child: Container(
-                  padding: EdgeInsets.all(AppSize.w(12)),
+                  padding: EdgeInsets.all(12.h),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: product.isFavorite
@@ -101,7 +97,7 @@ class ProductDetailsImageSection extends StatelessWidget {
                         ? Icons.favorite
                         : Icons.favorite_border_outlined,
                     color: AppColors.white,
-                    size: AppSize.h(20),
+                    size: 20.h,
                   ),
                 ),
               );
@@ -118,26 +114,22 @@ class BottomSCurveClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     final path = Path();
 
-    // 1️⃣ Top straight line
     path.moveTo(0, 0);
     path.lineTo(size.width, 0);
 
-    // 2️⃣ Down near bottom (before starting curve)
     path.lineTo(size.width, size.height * 0.70);
 
-    // 3️⃣ Right curve (much closer to the right corner)
     path.quadraticBezierTo(
-      size.width * 0.98, // X control (قريب جدًا من اليمين)
-      size.height * 0.92, // Y control
-      size.width * 0.75, // نهاية الكيرف أقرب للزاوية
+      size.width * 0.98,
+      size.height * 0.92,
+      size.width * 0.75,
       size.height * 0.90,
     );
 
-    // 4️⃣ Left curve (قريب من الكورنر الشمال)
     path.quadraticBezierTo(
-      size.width * 0.1, // control point قربناه للشمال
+      size.width * 0.1,
       size.height * 0.86,
-      0, // نهاية في كورنر الشمال
+      0,
       size.height * 1.0,
     );
 

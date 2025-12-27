@@ -1,9 +1,9 @@
-import 'package:delivery_app/utils/app_size.dart';
 import 'package:delivery_app/utils/theme/app_colors.dart';
 import 'package:delivery_app/view_models/cart/cart_cubit.dart';
 import 'package:delivery_app/views/widgets/custom_main_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SummaryCard extends StatelessWidget {
   const SummaryCard({super.key, required this.totalPrice});
@@ -25,79 +25,79 @@ class SummaryCard extends StatelessWidget {
         buildWhen: (previous, current) =>
             current is UpdateTotal || current is CartLoaded,
         builder: (context, state) {
-          if(state is  UpdateTotal){
+          if (state is UpdateTotal) {
             final totalPriceState = state.totalPrice;
             return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'SubTotal:',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: AppColors.darkBlue,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'SubTotal:',
+                          style: Theme.of(context).textTheme.bodyMedium!
+                              .copyWith(color: AppColors.darkBlue),
                         ),
-                      ),
-                      SizedBox(height: AppSize.h(6)),
-                      Text(
-                        'Envio:',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: AppColors.darkBlue,
+                        6.verticalSpace,
+                        Text(
+                          'Envio:',
+                          style: Theme.of(context).textTheme.bodyMedium!
+                              .copyWith(color: AppColors.darkBlue),
                         ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        '\$${totalPriceState.toStringAsFixed(2)} usd',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: AppColors.darkBlue,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(height: AppSize.h(6)),
-                      Text(
-                        'Gratis',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: AppColors.darkBlue,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(height: AppSize.h(12)),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Total:',
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.w600,
+                      ],
                     ),
-                  ),
-                  Text(
-                    '\$${totalPriceState.toStringAsFixed(2)} usd',
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.w600,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          '\$${totalPriceState.toStringAsFixed(2)} usd',
+                          style: Theme.of(context).textTheme.bodyMedium!
+                              .copyWith(
+                                color: AppColors.darkBlue,
+                                fontWeight: FontWeight.w500,
+                              ),
+                        ),
+                        6.verticalSpace,
+                        Text(
+                          'Gratis',
+                          style: Theme.of(context).textTheme.bodyMedium!
+                              .copyWith(
+                                color: AppColors.darkBlue,
+                                fontWeight: FontWeight.w500,
+                              ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: AppSize.h(12)),
-              CustomMainButton(onTap: () {}, buttonText: 'Realizar compra'),
-            ],
-          );
+                  ],
+                ),
+                12.verticalSpace,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Total:',
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Text(
+                      '\$${totalPriceState.toStringAsFixed(2)} usd',
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+                12.verticalSpace,
 
+                CustomMainButton(onTap: () {}, buttonText: 'Realizar compra'),
+              ],
+            );
           }
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -114,7 +114,8 @@ class SummaryCard extends StatelessWidget {
                           color: AppColors.darkBlue,
                         ),
                       ),
-                      SizedBox(height: AppSize.h(6)),
+                      6.verticalSpace,
+
                       Text(
                         'Envio:',
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -133,7 +134,8 @@ class SummaryCard extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      SizedBox(height: AppSize.h(6)),
+                      6.verticalSpace,
+
                       Text(
                         'Gratis',
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -145,7 +147,8 @@ class SummaryCard extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: AppSize.h(12)),
+              12.verticalSpace,
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -165,7 +168,8 @@ class SummaryCard extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: AppSize.h(12)),
+              12.verticalSpace,
+
               CustomMainButton(onTap: () {}, buttonText: 'Realizar compra'),
             ],
           );

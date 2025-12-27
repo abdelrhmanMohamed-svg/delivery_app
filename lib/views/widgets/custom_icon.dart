@@ -1,8 +1,9 @@
 import 'package:delivery_app/utils/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomIcon extends StatelessWidget {
-  const CustomIcon({super.key,  required this.onTap});
+class CustomIcon extends StatelessWidget with SU {
+  const CustomIcon({super.key, required this.onTap});
   final VoidCallback onTap;
 
   @override
@@ -10,19 +11,23 @@ class CustomIcon extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(8),
+        padding: EdgeInsets.all(8.h),
         decoration: BoxDecoration(
           color: AppColors.white,
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-              color: AppColors.black.withOpacity(0.3),
+              color: AppColors.black.withValues(alpha: 0.3),
               blurRadius: 0.5,
               spreadRadius: 0.2,
             ),
           ],
         ),
-        child: Icon(Icons.chevron_right_outlined, color: AppColors.darkBlue),
+        child: Icon(
+          size: 25.h,
+          Icons.chevron_right_outlined,
+          color: AppColors.darkBlue,
+        ),
       ),
     );
   }
