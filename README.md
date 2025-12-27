@@ -9,7 +9,8 @@ This is a food delivery mobile application built with Flutter. The app allows us
 *   **Flutter:** The UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase.
 *   **Dart:** The programming language used for Flutter development.
 *   **Cubit:** A lightweight state management solution that is a subset of the BLoC pattern.
-*   **go_router:** A declarative routing package for Flutter that simplifies navigation (inferred from `lib/utils/router`).
+*   **defualt_router:** A declarative routing package for Flutter that simplifies navigation (inferred from `lib/utils/router`).
+*   **flutter_screenutil:** A package for adapting screen and font size to different screen sizes.
 
 ## Features
 
@@ -20,6 +21,12 @@ This is a food delivery mobile application built with Flutter. The app allows us
 *   **Favorites:** Users can mark items as favorites and view them on a dedicated favorites page.
 *   **User Profile:** A section for user-related information and settings.
 *   **Shop Page:** A page that likely displays all available products.
+
+## Responsiveness
+
+The application UI is fully responsive and adapts to different screen sizes and orientations. This is achieved using the `flutter_screenutil` package, which ensures a consistent user experience across a wide range of devices.
+
+![Responsive UI](assets/screenshots/responsive_UI_screen.png)
 
 ## Project Structure
 
